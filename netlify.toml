@@ -1,0 +1,30 @@
+# Global settings applied to the whole site.
+# “base” is directory to change to before starting build, and
+# “publish” is the directory to publish (relative to root of your repo).
+# “command” is your build command.
+
+# The base is the directory where Netlify will run our build commands. In our case it is in the project root. So this is left empty.
+# The publish option points to where our build is generated. In the case of Create React App it is the build directory in our project root.
+#The command option is the build command that Netlify will use. If you recall the Manage environments in Create React App chapter, this will seem familiar. In the default context the command is REACT_APP_STAGE=dev npm run build:netlify. The npm run build:netlify is something we still need to set up. But the REACT_APP_STAGE is defaulted to dev here.
+
+
+
+[build]
+  base    = ""
+  publish = "build"
+  command = "REACT_APP_STAGE=dev npm run build:netlify"
+
+# Production context: All deploys to the main
+# repository branch will inherit these settings.
+[context.production]
+  command = "REACT_APP_STAGE=prod npm run build:netlify"
+
+# Deploy Preview context: All Deploy Previews
+# will inherit these settings.
+[context.deploy-preview]
+  command = "REACT_APP_STAGE=dev npm run build:netlify"
+
+# Branch Deploy context: All deploys that are not in
+# an active Deploy Preview will inherit these settings.
+[context.branch-deploy]
+  command = "REACT_APP_STAGE=dev npm run build:netlify"
